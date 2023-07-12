@@ -1,0 +1,18 @@
+Notes
+
+Priors (understand why to use jeffrey prior?)
+
+Bayesian Computation
+
+----
+
+List of all prob distributions from book, along with:
+
+mean
+variance
+"kernel"
+conjugate prior
+jeffrey's prior 
+
+-----
+

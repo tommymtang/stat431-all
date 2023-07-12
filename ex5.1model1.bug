@@ -1,0 +1,25 @@
+
+data {
+  dim.Y <- dim(Y)
+}
+
+model {
+  for(i in 1:dim.Y[1]) {
+
+    for(j in 1:dim.Y[2]) {
+      Y[i,j] ~ dnorm(mu[i,j], tausq.y)
+      mu[i,j] <- alpha[i,1] + alpha[i,2] * (X[j] - Xbar)
+    }
+
+    alpha[i,1:2] ~ dmnorm(beta, Omega.inv)
+  }
+
+  tausq.y ~ dgamma(0.001, 0.001)
+  sigma.y <- 1 / sqrt(tausq.y)
+
+  beta ~ dmnorm(mu0, Sigma0.inv)
+  Omega.inv ~ dwish(2*Omega0, 2)
+  Omega <- inverse(Omega.inv)
+
+  rho <- Omega[1,2] / sqrt(Omega[1,1] * Omega[2,2])
+}

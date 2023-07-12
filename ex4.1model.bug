@@ -1,0 +1,18 @@
+
+data {
+  xmean <- mean(x[1:(length(x)-1)])
+  for(i in 1:length(x)) {
+    xcent[i] <- x[i] - xmean
+  }
+}
+model {
+  for(i in 1:length(y)) {
+    y[i] ~ dpois(lambda[i])
+    log(lambda[i]) <- beta1 + beta2 * xcent[i]
+  }
+
+  beta1 ~ dnorm(0, 0.0001)
+  beta2 ~ dnorm(0, 0.0001)
+
+  beta2.gt.0 <- beta2 > 0
+}
